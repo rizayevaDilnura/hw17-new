@@ -28,19 +28,26 @@ class ViewController: UIViewController {
         return textField
     }()
 
-    //MARK: Button
-    private lazy var generateButton: UIButton = {
+    //MARK: Button Play
+   private  lazy var generatePlayButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .white
-//        button.titleLabel?.text = "Generate"
-//        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 25
         button.setImage(UIImage(named: "play"), for: .normal)
-       // button.setImage(UIImage(named: "pause"), for: .highlighted)
         button.imageEdgeInsets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 5)
         button.addTarget(self, action: #selector(generateButtonPressed), for: .touchUpInside)
         return button
+    }()
 
+    //MARK: Button Play
+   private  lazy var pauseButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 25
+        button.setImage(UIImage(named: "pause"), for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 5)
+        //button.addTarget(self, action: #selector(generateButtonPressed), for: .touchUpInside)
+        return button
     }()
 
     //MARK: activityIndicatorView
@@ -55,7 +62,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setUpViews()
         setUpConstraints()
-
     }
 
     //MARK: SetUp Views
@@ -63,7 +69,8 @@ class ViewController: UIViewController {
             view.backgroundColor = .white
             view.addSubview(label)
             view.addSubview(textField)
-            view.addSubview(generateButton)
+            view.addSubview(generatePlayButton)
+            view.addSubview(pauseButton)
             view.addSubview(activityIndicatorView)
         }
 
@@ -82,12 +89,19 @@ class ViewController: UIViewController {
             make.height.equalTo(59)
         }
 
-        generateButton.snp.makeConstraints { make in
+        generatePlayButton.snp.makeConstraints { make in
             make.top.equalTo(textField.snp.bottom).offset(40)
-            make.leading.equalTo(170)
-            make.trailing.equalTo(-175)
-           make.width.equalTo(30)
-          make.height.equalTo(50)
+            make.leading.equalTo(135)
+            make.trailing.equalTo(-225)
+           make.width.equalTo(20)
+          make.height.equalTo(42)
+        }
+        pauseButton.snp.makeConstraints { make in
+            make.top.equalTo(textField.snp.bottom).offset(40)
+            make.leading.equalTo(generatePlayButton.snp.trailing).offset(15)
+            make.trailing.equalTo(-160)
+           make.width.equalTo(20)
+          make.height.equalTo(40)
         }
     }
 
@@ -110,6 +124,7 @@ class ViewController: UIViewController {
                 self.activityIndicatorView.isHidden = true
             }
         }
+
         @objc func generateButtonPressed() {
             activityIndicatorView.startAnimating()
             guard let inputText = textField.text else { return }
@@ -143,7 +158,6 @@ class ViewController: UIViewController {
                                    : Character("")
     }
 
-
     func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
         var str: String = string
 
@@ -160,5 +174,6 @@ class ViewController: UIViewController {
         }
         return str
     }
+
 
 
