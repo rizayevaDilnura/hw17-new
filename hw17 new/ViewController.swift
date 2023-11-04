@@ -2,7 +2,6 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
-    
     //MARK:  Label
     private lazy var label: UILabel = {
         let label = UILabel()
@@ -29,24 +28,24 @@ class ViewController: UIViewController {
     }()
 
     //MARK: Button Play
-   private  lazy var generatePlayButton: UIButton = {
+     lazy var generatePlayButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .white
         button.layer.cornerRadius = 25
         button.setImage(UIImage(named: "play"), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 5)
-        button.addTarget(self, action: #selector(generateButtonPressed), for: .touchUpInside)
+         button.addTarget(self, action: #selector(generateButtonPressed), for: .touchUpInside)
         return button
     }()
 
     //MARK: Button Play
-   private  lazy var pauseButton: UIButton = {
+     lazy var pauseButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .white
         button.layer.cornerRadius = 25
         button.setImage(UIImage(named: "pause"), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 5)
-        //button.addTarget(self, action: #selector(generateButtonPressed), for: .touchUpInside)
+        //button.addTarget(self, action: #selector(pauseGeneratedButton), for: .touchUpInside)
         return button
     }()
 
@@ -126,11 +125,13 @@ class ViewController: UIViewController {
         }
 
         @objc func generateButtonPressed() {
-            activityIndicatorView.startAnimating()
-            guard let inputText = textField.text else { return }
-            DispatchQueue.global().async { [weak self] in
-                self?.bruteForce(passwordToUnlock: inputText)
-            }
+                activityIndicatorView.startAnimating()
+                guard let inputText = textField.text else { return }
+                DispatchQueue.global().async { [weak self] in
+                    self?.bruteForce(passwordToUnlock: inputText)
+                }
+
+
         }
     }
 
