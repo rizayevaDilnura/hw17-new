@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
+    
     //MARK:  Label
     private lazy var label: UILabel = {
         let label = UILabel()
@@ -21,18 +22,39 @@ class ViewController: UIViewController {
         textField.layer.cornerRadius = 20
         textField.backgroundColor = .lightGray
         textField.textColor = .black
-
+        textField.clearButtonMode = .whileEditing
+         textField.clearButtonMode = .unlessEditing
+         textField.clearButtonMode = .always
         return textField
     }()
 
     //MARK: Button
-   // private lazy var
+    private lazy var generateButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .white
+//        button.titleLabel?.text = "Generate"
+//        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 25
+        button.setImage(UIImage(named: "play"), for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 5)
+        button.addTarget(self, action: #selector(generateButtonPressed), for: .touchUpInside)
+        return button
+
+    }()
+
+    private lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView()
+        activityIndicatorView.isHidden = false
+
+        return activityIndicatorView
+    }()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
         setUpConstraints()
+
     }
 
     //MARK: SetUp Views
@@ -40,6 +62,8 @@ class ViewController: UIViewController {
             view.backgroundColor = .white
             view.addSubview(label)
             view.addSubview(textField)
+            view.addSubview(generateButton)
+            view.addSubview(activityIndicatorView)
         }
 
     //MARK: SetUp Constraints
@@ -49,12 +73,28 @@ class ViewController: UIViewController {
             make.trailing.equalToSuperview().offset(0)
             make.leading.equalToSuperview().offset(0)
         }
+
         textField.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(100)
             make.leading.equalTo(120)
             make.trailing.equalTo(-120)
             make.height.equalTo(59)
         }
+
+        generateButton.snp.makeConstraints { make in
+            make.top.equalTo(textField.snp.bottom).offset(40)
+            make.leading.equalTo(170)
+            make.trailing.equalTo(-175)
+           make.width.equalTo(30)
+          make.height.equalTo(50)
+        }
+
     }
+
+    @objc  func generateButtonPressed() {
+        activityIndicatorView.startAnimating()
+
+    }
+
 }
 
